@@ -82,4 +82,27 @@ describe('Curriculum Registry & Visual Architecture Integrity', () => {
     const diagContent = fs.readFileSync(diagramsFile, 'utf-8');
     assert.ok(diagContent.includes('ConceptDiagram'), 'Must export ConceptDiagram');
   });
+
+  test('algorithm battlecards suite exists with 3D flip and dual study modes', () => {
+    const battlecardFile = path.resolve(process.cwd(), 'components/Battlecard.tsx');
+    const modalFile = path.resolve(process.cwd(), 'components/BattlecardModal.tsx');
+    const battlecardPage = path.resolve(process.cwd(), 'app/battlecards/page.tsx');
+
+    assert.ok(fs.existsSync(battlecardFile), 'Battlecard.tsx component must exist');
+    const cardContent = fs.readFileSync(battlecardFile, 'utf-8');
+    assert.ok(cardContent.includes('KaTeXFormula'), 'Battlecard must render KaTeX mathematical formulation');
+    assert.ok(cardContent.includes('Execution Pipeline'), 'Battlecard must detail step-by-step execution mechanics');
+    assert.ok(cardContent.includes('When to Deploy'), 'Battlecard must detail sweet-spot deployment criteria');
+    assert.ok(cardContent.includes('Failure Modes'), 'Battlecard must detail production failure modes');
+    assert.ok(cardContent.includes('Principal ML Interview Anchor'), 'Battlecard must include senior interview takeaway');
+    assert.ok(cardContent.includes('complexity'), 'Battlecard must include Big-O complexity scorecard');
+
+    assert.ok(fs.existsSync(modalFile), 'BattlecardModal.tsx must exist');
+    assert.ok(fs.existsSync(battlecardPage), 'app/battlecards/page.tsx must exist');
+
+    const pageContent = fs.readFileSync(battlecardPage, 'utf-8');
+    assert.ok(pageContent.includes('Interactive Study Deck'), 'Battlecards page must feature flashcard deck mode');
+    assert.ok(pageContent.includes('Mastery Grid'), 'Battlecards page must feature full 38-topic mastery grid');
+  });
 });
+

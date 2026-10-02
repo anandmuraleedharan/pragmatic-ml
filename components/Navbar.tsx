@@ -3,7 +3,8 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Cpu, BookOpen, Compass, FileSpreadsheet, ArrowLeft, Sparkles } from 'lucide-react';
+import { Cpu, BookOpen, Compass, FileSpreadsheet, ArrowLeft, Sparkles, Zap } from 'lucide-react';
+
 
 export function Navbar() {
   const pathname = usePathname();
@@ -57,6 +58,19 @@ export function Navbar() {
             <BookOpen className="h-3.5 w-3.5 text-sky-400" />
             <span>Curriculum</span>
           </a>
+
+          <Link
+            href="/battlecards"
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border tactile-press transition-all ${
+              pathname === '/battlecards'
+                ? 'border-amber-500/40 bg-amber-500/15 text-amber-300 shadow-sm shadow-amber-500/20'
+                : 'border-transparent text-slate-300 hover:border-white/[0.1] hover:bg-white/[0.05] hover:text-white'
+            }`}
+          >
+            <Zap className="h-3.5 w-3.5 text-amber-400" />
+            <span>Battlecards</span>
+          </Link>
+
 
           <Link
             href="/decision-catalogue"

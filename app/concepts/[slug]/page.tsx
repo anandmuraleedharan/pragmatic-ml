@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getAllConcepts, getConceptBySlug } from '../../../lib/curriculum/registry';
 import { ConceptCarousel } from '../../../components/ConceptCarousel';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Zap } from 'lucide-react';
 
 interface ConceptPageProps {
   params: Promise<{ slug: string }>;
@@ -54,7 +54,15 @@ export default async function ConceptPage({ params }: ConceptPageProps) {
           <span className="rounded-full bg-slate-800 px-2.5 py-0.5 text-xs text-slate-300">
             Level: {concept.level}
           </span>
+          <Link
+            href={`/battlecards?concept=${concept.id}`}
+            className="inline-flex items-center gap-1 rounded-full bg-amber-500/15 border border-amber-500/30 px-2.5 py-0.5 text-xs font-semibold text-amber-300 hover:bg-amber-500/25 transition-all tactile-press ml-auto"
+          >
+            <Zap className="h-3.5 w-3.5 text-amber-400" />
+            <span>Study Battlecard</span>
+          </Link>
         </div>
+
 
         <h1 className="text-2xl font-extrabold tracking-tight text-white sm:text-4xl">
           {concept.title}

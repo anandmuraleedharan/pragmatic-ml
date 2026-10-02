@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
+import Link from 'next/link';
 import { getAllConcepts, getAllSections } from '../lib/curriculum/registry';
 import { ConceptCard } from '../components/ConceptCard';
 import {
@@ -13,7 +14,9 @@ import {
   HelpCircle,
   Cpu,
   Layers,
+  ArrowRight,
 } from 'lucide-react';
+
 
 export default function HomePage() {
   const allSections = useMemo(() => getAllSections(), []);
@@ -109,9 +112,37 @@ export default function HomePage() {
             <p className="text-[11px] font-mono text-purple-300/80 uppercase tracking-wider font-semibold">Deterministic</p>
           </div>
         </div>
+
+        {/* Battlecard Feature Callout */}
+        <div className="mx-auto mt-10 max-w-4xl rounded-2xl border border-amber-500/30 bg-gradient-to-r from-amber-500/10 via-slate-900/90 to-purple-500/10 p-5 text-left sm:flex sm:items-center sm:justify-between shadow-xl shadow-amber-500/5">
+          <div className="flex items-start gap-3.5 mb-4 sm:mb-0">
+            <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-amber-500/20 border border-amber-500/30 text-amber-400">
+              <Zap className="h-6 w-6" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h3 className="text-base font-bold text-white">Algorithm Mastery Battlecards</h3>
+                <span className="rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2 py-0.5 text-[10px] font-mono uppercase font-bold">
+                  Quick Study
+                </span>
+              </div>
+              <p className="text-xs text-slate-300 mt-1 leading-relaxed">
+                30-second algorithm flashcards: Core equations (KaTeX), execution mechanics, Big-O complexities, and principal interview takeaways across all 38 topics.
+              </p>
+            </div>
+          </div>
+          <Link
+            href="/battlecards"
+            className="flex-shrink-0 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 hover:brightness-110 px-4 py-2 text-xs font-bold text-white shadow-lg shadow-amber-500/25 transition-all tactile-press cursor-pointer"
+          >
+            <span>Study Battlecards</span>
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
       </div>
 
       {/* Filter and Search Bar */}
+
       <div id="curriculum" className="mt-16 space-y-6 scroll-mt-24">
         <div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
           {/* Search Box */}
