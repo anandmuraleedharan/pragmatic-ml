@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { DECISION_RULES, DecisionRule } from '../../lib/decision-engine';
+import { InteractiveDecisionTree } from '../../components/InteractiveDecisionTree';
 import {
   Compass,
   Zap,
@@ -15,9 +16,12 @@ import {
   Cpu,
   Search,
   Sparkles,
+  GitFork,
+  ListFilter,
 } from 'lucide-react';
 
 export default function DecisionCataloguePage() {
+  const [viewMode, setViewMode] = useState<'tree' | 'catalogue'>('tree');
   const [selectedDomain, setSelectedDomain] = useState<string>('all');
   const [selectedLatency, setSelectedLatency] = useState<string>('all');
   const [selectedData, setSelectedData] = useState<string>('all');
@@ -59,10 +63,43 @@ export default function DecisionCataloguePage() {
         <p className="mt-3 text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
           Input your engineering constraints (Latency SLA, data availability, compute budget) to find the right-sized model pipeline. Stop throwing LLM tokens at tasks classical algorithms solve in 2ms.
         </p>
+
+        {/* View Mode Toggle for Visual Learners */}
+        <div className="mt-6 inline-flex p-1 rounded-xl bg-slate-900 border border-slate-800 shadow-inner">
+          <button
+            onClick={() => setViewMode('tree')}
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all ${
+              viewMode === 'tree'
+                ? 'bg-gradient-to-r from-sky-500 to-indigo-600 text-white shadow-md shadow-sky-500/30'
+                : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            <GitFork className="h-4 w-4" />
+            <span>Interactive Decision Tree (Visual DAG)</span>
+          </button>
+          <button
+            onClick={() => setViewMode('catalogue')}
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all ${
+              viewMode === 'catalogue'
+                ? 'bg-gradient-to-r from-sky-500 to-indigo-600 text-white shadow-md shadow-sky-500/30'
+                : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            <ListFilter className="h-4 w-4" />
+            <span>Constraint Rules Table ({filteredRules.length})</span>
+          </button>
+        </div>
       </div>
 
-      {/* Interactive Constraint Filter Bar */}
-      <div className="mt-10 rounded-2xl doppelrand-card p-5 sm:p-6">
+      {/* Conditionally Render Tree or Catalogue */}
+      {viewMode === 'tree' ? (
+        <div className="mt-10">
+          <InteractiveDecisionTree />
+        </div>
+      ) : (
+        <>
+          {/* Interactive Constraint Filter Bar */}
+          <div className="mt-10 rounded-2xl doppelrand-card p-5 sm:p-6">
         <div className="flex items-center justify-between border-b border-slate-800/80 pb-3 mb-4">
           <span className="text-xs font-bold text-sky-400 uppercase tracking-wider flex items-center gap-2">
             <Filter className="h-4 w-4" />
@@ -264,6 +301,8 @@ export default function DecisionCataloguePage() {
           ))
         )}
       </div>
+      </>
+      )}
     </div>
   );
 }
